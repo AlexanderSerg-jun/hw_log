@@ -127,10 +127,13 @@ name_format= HOSTNAME
 ![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/8a93feab-50fe-442e-a409-57243b0e945b)
 
 Далее настроим Log-сервер. Отроем порт TCP 60, для этого уберем значки комментария в файле /etc/audit/auditd.conf:
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/56d137a1-eca4-4352-91dd-9594602b2ce6)
+
+
 Смотрим атрибуты файла /etc/nginx/nginx.conf
 ![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/377a77d6-eff3-4f3b-8ac8-f2765e94973c)
-
-![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/bb71e2e9-dd0e-4191-a7aa-f1552441c297)
+Меняем значения атрибута 
 
 
 
