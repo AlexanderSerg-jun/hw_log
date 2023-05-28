@@ -56,6 +56,35 @@ yum install -y nginx
 ![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/c34739ed-8748-4235-9007-630bb5b920f6)
 
 Далее настроим отправку логов с web-сервера
+Проверим версию nginx: rpm -qa | grep nginx
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/85c67558-ab9e-42e2-aeb1-4db90d80c7c2)
+
+Версия nginx должна быть 1.7 или выше. В нашем примере используется версия nginx 1.20. 
+Находим в файле /etc/nginx/nginx.conf раздел с логами и приводим их к следующему виду:
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/8395821b-b617-4bf7-8d14-ceff813aa7b5)
+Для Access-логов указыаем удаленный сервер и уровень логов, которые нужно отправлять. Для error_log добавляем удаленный сервер. Если требуется чтобы логи хранились локально и отправлялись на удаленный сервер, требуется указать 2 строки. 	
+Tag нужен для того, чтобы логи записывались в разные файлы.
+По умолчанию, error-логи отправляют логи, которые имеют severity: error, crit, alert и emerg. Если трубуется хранили или пересылать логи с другим severity, то это также можно указать в настройках nginx. 
+Далее проверяем, что конфигурация nginx указана правильно: nginx -t
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/bb6d0c7e-d067-47f3-8f38-50766524c42e)
+
+
+Далее перезапустим nginx: systemctl restart nginx
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/4e423412-99d9-4793-a856-55f27fdb3912)
+
+Чтобы проверить, что логи ошибок также улетают на удаленный сервер, можно переимновать файл index.html, к которой будет обращаться nginx во время открытия веб-сраницы: mv /usr/share/nginx/html/index.html /usr/share/nginx/html/index2.html
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/26d39f6d-070e-472d-a182-74cad871cec1)
+Получаем ошибку :
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/bb7477ab-93d7-49dd-b159-88d1668a9b1c)
+О чем свидетельствует и rsyslog 
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/86707653-a44b-4077-b806-c39736f6056d)
+
+
+
 
 
 
