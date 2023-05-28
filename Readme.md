@@ -134,6 +134,9 @@ name_format= HOSTNAME
 Смотрим атрибуты файла /etc/nginx/nginx.conf
 ![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/377a77d6-eff3-4f3b-8ac8-f2765e94973c)
 Меняем значения атрибута 
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/2364bf5f-a3da-4554-acea-2f1f6b2260f6)
+Проверяем лог файл на сервере логирования
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/d78047c9-80ba-4f0e-b73d-5814a6f7d1e2)
 
 
 
