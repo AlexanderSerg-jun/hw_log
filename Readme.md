@@ -103,6 +103,37 @@ Tag нужен для того, чтобы логи записывались в 
 ![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/c3e8a9ef-57f9-4186-b16d-6c0826a2a26c)
 Или воспользуемся grep nginx_conf /var/log/audit/audit.log
 ![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/f128dd9f-7875-4ed6-9fc1-2265aa993a2d)
+Далее настроим пересылку логов на удаленный сервер. Auditd по умолчанию не умеет пересылать логи, для пересылки на web-сервере потребуется установить пакет audispd-plugins: yum -y install audispd-plugins
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/8c8e2f64-df55-487b-b2b7-0b103e09fa94)
+Найдем и поменяем следующие строки в файле /etc/audit/auditd.conf: 
+log_format= RAW
+name_format= HOSTNAME
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/1d71d07b-c6de-4d3c-9da1-d01e8f4aab30)
+
+В файле /etc/audisp/plugins.d/au-remote.conf поменяем параметр active на yes:
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/871d219b-7317-4ec9-895f-0000d20bac7d)
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/80ff1b09-4301-4d80-a2a0-6e8788019d61)
+
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/eae6efb3-efb4-48b8-95fd-86a1f28c8402)
+В файле /etc/audisp/audisp-remote.conf требуется указать адрес сервера и порт, на который будут отправляться логи:
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/21c58c61-c953-41ae-8d34-e2856830ef60)
+Меняем наше значение 
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/a7d236a2-9d24-4b78-9596-2d8b8b58cb46)
+Перезапускаем службу : service auditd restart
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/8a93feab-50fe-442e-a409-57243b0e945b)
+
+Далее настроим Log-сервер. Отроем порт TCP 60, для этого уберем значки комментария в файле /etc/audit/auditd.conf:
+Смотрим атрибуты файла /etc/nginx/nginx.conf
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/377a77d6-eff3-4f3b-8ac8-f2765e94973c)
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/bb71e2e9-dd0e-4191-a7aa-f1552441c297)
+
+
+
 
 
 
