@@ -83,6 +83,26 @@ Tag нужен для того, чтобы логи записывались в 
 
 ![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/86707653-a44b-4077-b806-c39736f6056d)
 
+ Настройка аудита, контролирующего изменения конфигурации nginx
+За аудит отвечает утилита auditd, в RHEL-based системах обычно он уже предустановлен. Проверим это: rpm -qa | grep audit
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/a4a11184-8bae-4f71-937b-39061f72375b)
+Настроим аудит изменения конфигурации nginx:
+Добавим правило, которое будет отслеживать изменения в конфигруации nginx. Для этого в конец файла /etc/audit/rules.d/audit.rules добавим следующие строки:
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/3b659c5e-b243-462c-a660-63dd846c7efe)
+
+Данные правила позволяют контролировать запись (w) и измения атрибутов (a) в:/etc/nginx/nginx.conf
+Всех файлов каталога /etc/nginx/default.d/ .Для более удобного поиска к событиям добавляется метка nginx_conf
+Перезапускаем службу auditd: service auditd restart
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/3d80664c-93eb-4590-851d-48cd4f5ec115)
+После данных изменений у нас начнут локально записываться логи аудита. Чтобы проверить, что логи аудита начали записываться локально, нужно внести изменения в файл /etc/nginx/nginx.conf (изменим значение types_hasj_max_size с 4096 на 5192)
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/96c7aa05-229d-4fa5-9b87-a71f1fc7d83a)
+
+Чтобы проверить, что логи аудита начали записываться локально, нужно внести изменения в файл /etc/nginx/nginx.conf или поменять его атрибут, потом посмотреть информацию об изменениях: ausearch -f /etc/nginx/nginx.confq
+
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/c3e8a9ef-57f9-4186-b16d-6c0826a2a26c)
+Или воспользуемся grep nginx_conf /var/log/audit/audit.log
+![изображение](https://github.com/AlexanderSerg-jun/hw_log/assets/85576634/f128dd9f-7875-4ed6-9fc1-2265aa993a2d)
 
 
 
